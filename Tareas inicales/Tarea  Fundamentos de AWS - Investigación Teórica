@@ -1,0 +1,79 @@
+-  **Objetivo:** Comprender los servicios básicos y los conceptos clave de Amazon Web Services (AWS).
+
+1.  **Servicios:**
+
+-  **S3 (Simple Storage Service):** ¿Qué es? ¿Para qué se usa? 
+
+ -es un servicio de almacenamiento de objetos que
+  ofrece escalabilidad, disponibilidad de datos, seguridad y rendimiento
+  es un servicio de almacenamiento para Internet.para almacenar y proteger
+  cualquier cantidad de datos para diversos casos de uso, tales como lagos de
+  datos, sitios web,aplicaciones móviles, 
+  copia de seguridad y restauración, archivado, Aplicaciones
+  empresariales, dispositivos IoT y análisis de big data
+
+- **IAM (Identity and Access Management):** ¿Qué es? ¿Para qué se usa?
+ -es un administrador de accesos el caual es encargado de la gestion de los
+  buckets en s3 permitiendo su uso si configura explicitamente los permisos para
+  acceder. Los permisos asociados a un bucket se aplican a todos 
+  los objetos del bucket que son propiedad de la cuenta
+  de propietario del
+  bucket. Las políticas de bucket tienen un límite de tamaño de 20 KB
+
+- **VPC (Virtual Private Cloud):** ¿Qué es? 
+ -es un entorno seguro y aislado que se aloja dentro de una nube pública (una nube privada) Los clientes de la VPC pueden ejecutar código, almacenar datos, alojar sitios web y hacer todo lo que podrían hacer en una nube privada normal, pero la nube privada está alojada de forma remota por un proveedor de nube pública. (No todas las nubes privadas se alojan de este modo.) Las VPC combinan la escalabilidad y la comodidad de la informática en nube pública con el aislamiento de datos de la informática en nube privada.
+
+
+- **RDS (Relational Database Service):** ¿Qué es? ¿Para qué se usa?
+ -es un servico para la administraciion de bases de datos que permite
+  configurar, operar y escalar bases de datos relaciones, se usa para copias de
+  seguridad automatizadas tambien se puede integrarcon amazon VPC para el
+  aislamiento de red
+
+
+- **EBS (Elastic Block Storage):** ¿Qué es? ¿Para qué se usa?
+ -es un servicio de almacenamiento en bloque proporcionado por AWS. Se utiliza
+  para almacenar datos persistentes y de alto rendimiento que pueden ser
+  accesados desde instancias de Amazon EC2. se usa en bases de datos, sistemas
+  de archivos y aplicaciones críticas. ya que contine almacenamiento de datos
+  persistentes es decir, permanecen disponibles incluso si la instancia EC2
+  asociada se detiene o termina.
+
+
+- **Route 53:** ¿Qué es? ¿Para qué se usa?
+ -es un servicio de sistema de nombres de dominio (DNS) administrado en la nube,
+  diseñado para conectar solicitudes de usuarios con los recursos de AWS. es 
+  usado para registrar nombres de dominio directamente desde AWS, Administra
+  registros DNS para dominios adquiridos en AWS u otros registradores, Controla
+  cómo se enrutan las solicitudes de usuarios a los endpoints, equilibrio de 
+  cargas para Distribuir tráfico entre varias instancias o regiones según
+  políticas específicas  
+
+
+
+2.  **Conceptos:**
+
+- **Regiones y Zonas de Disponibilidad:** Define estos conceptos y explica su importancia en la arquitectura de AWS.
+-Es una ubicación geográfica específica en el mundo donde AWS tiene centros de datos. Cada región es independiente y está aislada para proporcionar redundancia y alta disponibilidad.
+
+-Es un centro de datos o un grupo de centros de datos dentro de una región, interconectados pero físicamente separados para evitar fallas simultáneas. Cada región tiene al menos dos AZ para garantizar alta disponibilidad
+
+la importanzacia radica en que dependiendo de las regiones y zonas de disponibilidad puedes optimizar la  la latencia, reducir costos y cumplir con requisitos legales de la aplicacion.
+- **AMI (Amazon Machine Image):** ¿Qué es una AMI y para qué se utiliza? Explica los diferentes tipos de AMIs.
+
+SonPlantillas preconfiguradas para las instancias que empaquetan los componentes que necesita para el servidor (incluido el sistema operativo y el software adicional). para configurar y arrancar una instancia de Amazon EC2. Cada AMI tambien contiene una
+asignación de dispositivos de bloques que especifica los dispositivos de bloques que se deben
+asociar a las instancias que se lancen. Debe especificar una AMI al iniciar una instancia. 
+
+AMI en EC2 se dividen en funcion de las siguientes caracteristicas Amazon Elastic Compute Cloud Guía del usuario
+Tipos y características de AMI en Amazon EC2
+Cuando lance una instancia, la AMI que elija debe ser compatible con el tipo de instancia que elija.
+Puede elegir la AMI que va a utilizar en función de las características siguientes:
+• Region: Las AMIs son específicas de una región y no se pueden usar
+ directamente en otras regiones. Sin embargo, puedes copiarlas a diferentes 
+ regiones si es necesario.
+• Sistema operativo: ya sea windows o linux hay que espesificar por obias razones en que sistema correra.
+• Arquitectura del procesador: existen x86 y ARM
+• Permisos de inicialización Las AMIs pueden clasificarse según quién tiene acceso para lanzarlas ya sean publicas o privadas
+• Root device type: Esto se refiere al tipo de almacenamiento que usa la instancia para su volumen raíz(EBS-backed AMIs, Instance-store-backed AMIs)
+• Tipos de virtualización: Esto define cómo la instancia EC2 se ejecuta virtualmente en el hardware (Paravirtual PV, Hardware Virtual Machine HVM)
