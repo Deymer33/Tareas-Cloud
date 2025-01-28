@@ -1,0 +1,93 @@
+**¿Qué es la Integración Continua (CI)?** Definición, propósito y beneficios
+
+*  Definición: La Integración Continua es un proceso en el que los desarrolladores fusionan sus cambios de código en un repositorio central de manera regular, generalmente varias veces al día. Cada integración se verifica mediante una serie de pruebas automatizadas y un proceso de construcción para garantizar que el código nuevo no introduzca errores en el código existente.
+* proposito: El propósito principal de la Integración Continua es Detectar errores rápidamente, Mejorar la calidad del software, Facilitar la colaboración y Reducir el tiempo de entrega al automatizar los procesos.
+* beneficios: Detección temprana de errores, los errores se identifican y corrigen rápidamente, lo que reduce el costo y el tiempo de reparación. Integración más sencilla, al integrar cambios pequeños y frecuentes, se reducen los conflictos y se facilita la resolución de problemas. Documentación implícita, el proceso de CI sirve como una forma de documentación, ya que el historial de integraciones y pruebas proporciona un registro claro del estado del proyecto.
+
+**Flujo de trabajo de CI:** Explicar el ciclo típico: commit, push, build, test, informe.
+
+* Commit: El desarrollador guarda los cambios localmente.
+* Push: Los cambios se suben al repositorio remoto.
+* Build: El sistema de CI compila y construye el código.
+* Test: Se ejecutan pruebas automatizadas para validar el código.
+* informe: Se genera un informe con los resultados del build y las pruebas.
+
+3. **Herramientas de CI:** Definir las herramientas más populares, como:
+
+ * Jenkins es una herramienta de automatización de código abierto ampliamente utilizada para implementar pipelines de Integración Continua y Entrega Continua (CI/CD). Es altamente configurable y extensible a través de plugins, lo que permite integrarse con una variedad de herramientas y tecnologías. Jenkins se ejecuta en un servidor y puede manejar tareas como la construcción, prueba y despliegue de aplicaciones de manera automatizada.
+
+* GitLab CI/CD es una solución de integración y entrega continua integrada directamente en la plataforma GitLab. Utiliza un archivo de configuración (`.gitlab-ci.yml`) para definir pipelines que automatizan tareas como la construcción, prueba y despliegue de código. Es una herramienta nativa de GitLab, lo que facilita su uso en proyectos alojados en esta plataforma.
+
+ * GitHub Actions es una plataforma de CI/CD nativa de GitHub que permite automatizar flujos de trabajo directamente desde el repositorio. Los workflows se definen en archivos YAML y pueden ejecutar tareas como construcción, pruebas y despliegue en respuesta a eventos como push, pull requests o releases. Es altamente integrable con el ecosistema de GitHub y servicios externos.
+
+ * CircleCI es una plataforma de CI/CD en la nube que automatiza la construcción, prueba y despliegue de aplicaciones. Soporta múltiples lenguajes y frameworks, y se integra con repositorios como GitHub y Bitbucket. CircleCI utiliza un archivo de configuración (`config.yml`) para definir pipelines y ofrece ejecución en contenedores Docker o máquinas virtuales.
+
+* Travis CI es un servicio de integración continua en la nube diseñado para proyectos de código abierto y privados. Se integra con GitHub y Bitbucket, y utiliza un archivo de configuración (`.travis.yml`) para definir pipelines que ejecutan tareas como construcción y pruebas. Travis CI es conocido por su simplicidad y facilidad de uso, especialmente en proyectos open source.
+
+
+
+
+ * Un **pipeline** en el contexto de CI es una secuencia automatizada de pasos o etapas que se ejecutan para construir, probar y desplegar código. Cada pipeline está diseñado para garantizar que el software cumpla con los estándares de calidad antes de ser entregado. Los pipelines suelen incluir etapas como:
+
+   - **Build**: Compilación o construcción del código.
+  - **Test**: Ejecución de pruebas automatizadas (unitarias, de integración, etc.).
+  *  **Deploy**: Despliegue del código en un entorno de prueba o producción.
+
+La configuración de un pipeline depende de la herramienta de CI que se utilice, pero generalmente sigue estos pasos:
+
+1. **Definir el archivo de configuración**:
+    
+    - En **Jenkins**: Se configura mediante una interfaz gráfica o un archivo `Jenkinsfile` (basado en Groovy).
+        
+    - En **GitLab CI/CD**: Se usa un archivo `.gitlab-ci.yml` (en YAML).
+        
+    - En **GitHub Actions**: Se define en un archivo YAML dentro de la carpeta `.github/workflows/`.
+        
+    - En **CircleCI**: Se configura en un archivo `config.yml`.
+        
+    - En **Travis CI**: Se usa un archivo `.travis.yml`.
+        
+2. **Especificar las etapas**:  
+    Cada etapa del pipeline se define en el archivo de configuración. Por ejemplo:
+
+```yaml
+stages:
+  - build
+  - test
+  - deploy
+```
+
+
+3. **Definir los jobs o tareas**:  
+    Cada etapa puede tener uno o más jobs que ejecutan comandos específicos. Por ejemplo:
+
+``
+```yaml
+build:
+  script:
+    - mvn clean install
+test:
+  script:
+    - pytest tests/
+```
+
+**Integrar con herramientas externas**:  
+Se pueden agregar integraciones con herramientas de notificación (Slack, email), almacenamiento de artefactos (AWS S3), o despliegue en la nube (Kubernetes, AWS).
+
+
+5. **Integración con Git:** Explicar cómo se integra la CI con Git (webhooks, polling)
+
+ * La Integración Continua (CI) se integra con Git para detectar cambios en el código y activar automáticamente el pipeline. Esto se logra principalmente mediante dos mecanismos: **webhooks** y **polling**.
+
+Webhooks:
+1. El desarrollador hace un `push` al repositorio.
+2. Git envía una solicitud HTTP (webhook) a la herramienta de CI.
+3. La herramienta de CI recibe la notificación y ejecuta el pipeline correspondiente.
+
+ polling:
+ 1. La herramienta de CI revisa el repositorio cada cierto intervalo de tiempo (por ejemplo, cada 5 minutos).
+2. Si detecta cambios (como un nuevo `commit`), activa el pipeline.
+
+
+
+
