@@ -1,0 +1,103 @@
+Tarea: Introducción a Microservicios y su Relevancia en la Nube y Serverless  
+  
+• Objetivo: Comprender qué son los microservicios, su importancia en la nube y específicamente en entornos serverless.  
+  
+ 
+  
+Parte 1: Modelos Serverless  
+  
+-Event-Driven Architecture (EDA):  
+Tarea: Describe cómo una aplicación serverless responde a un evento específico. ¿Qué ventajas ofrece ser event-driven?  
+
+1. Una arquitectura basada en eventos utiliza eventos para activar y comunicarse entre servicios desacoplados y es común en aplicaciones modernas creadas con microservicios. Un evento es un cambio de estado o una actualización, como la colocación de un artículo en un carrito de compras en un sitio web de comercio electrónico. Los eventos pueden llevar el estado (el artículo comprado, su precio y una dirección de entrega) o los eventos pueden ser identificadores (una notificación de que se envió un pedido). 
+2. Las arquitecturas basadas en eventos tienen tres componentes clave: productores de eventos, enrutadores de eventos y consumidores de eventos. Un productor publica un evento en el enrutador, que filtra y envía los eventos a los consumidores. Los servicios al productor y los servicios al consumidor están desacoplados, lo que permite escalarlos, actualizarlos e implementarlos de forma independiente.
+
+---
+  
+-Cold Starts vs. Warm Starts:  
+Tarea: Explica la diferencia y cómo afectan el rendimiento. Sugiere estrategias para reducir el impacto de los cold starts.  
+
+1. **Cold Start:**  Ocurre cuando una función en un entorno de computación sin servidor (como AWS Lambda) se ejecuta por primera vez o después de un período de inactividad. Durante un cold start, el proveedor de servicios debe asignar recursos (como memoria y CPU), inicializar el entorno de ejecución y cargar el código de la función. Esto introduce un retraso adicional antes de que la función comience a procesar la solicitud.
+2. **Warm Start:** Ocurre cuando una función se ejecuta en un entorno que ya ha sido inicializado previamente. En este caso, no hay retrasos asociados con la asignación de recursos o la inicialización, por lo que la función puede comenzar a procesar la solicitud de inmediato.
+3. como afecta: - **Aumenta la latencia:** El tiempo de inicio de la función puede ser significativamente mayor, especialmente en entornos con tiempos de inicialización largos (por ejemplo, funciones que usan runtimes como Java o .NET).
+ - **Impacto en la experiencia del usuario:** En aplicaciones sensibles a la latencia (como APIs en tiempo real), los cold starts pueden causar retrasos perceptibles.
+ - **Mayor uso de recursos:** La inicialización consume recursos adicionales, lo que puede aumentar los costos en algunos casos.
+ 1. reducir el impacto Manteniendo funciones "calientes: Usa provisioned concurrency (en AWS Lambda) para pre-inicializar un número específico de instancias de la función, asegurando que siempre estén listas para ejecutarse. Programa invocaciones periódicas (por ejemplo, usando **CloudWatch Events**) para evitar que las funciones entren en estado inactivo. 
+ 2. Dividir aplicaciones grandes en funciones más pequeñas y específicas. Esto reduce el tiempo de inicialización y mejora la escalabilidad 
+ 3. Usa almacenamiento temporal (como `/tmp` en AWS Lambda) para cachear datos que no cambian con frecuencia, evitando tener que recargarlos en cada ejecución.
+
+
+--- 
+
+  
+-Cost Management:  
+Tarea: Investiga cómo se calculan los costos en entornos serverless. Proporciona dos estrategias para optimizar el gasto.  
+
+En un entorno serverless, los costos se basan en el uso real de los recursos, en lugar de pagar por capacidad pre-asignada. Los principales factores que influyen en los costos son:
+
+ **Número de solicitudes (requests):**
+    - Se cobra por cada invocación de la función. Por ejemplo, en AWS Lambda, el primer millón de solicitudes por mes es gratuito, y luego cobra por cada millón adicional.
+
+ Tiempo de ejecución (duration):
+- Se cobra por el tiempo que tarda en ejecutarse la función, medido en milisegundos. El costo depende de la cantidad de memoria asignada a la función.
+- Fórmula 
+
+```javascript
+Costo = Número de solicitudes × Costo por solicitud + Tiempo de ejecución total (GB-segundos) × Costo por GB-segundo 
+```
+Se calcula multiplicando la memoria asignada (en GB) por el tiempo de ejecución (en segundos).
+
+Ajustar la memoria asignada:
+Encuentra el equilibrio óptimo entre memoria y tiempo de ejecución. Asignar más memoria puede reducir el tiempo de ejecución, pero aumenta el costo por GB-segundo. Usa herramientas como AWS Lambda Power Tuning para encontrar la configuración más eficiente.
+
+---
+
+Parte 2: Microservicios  
+  
+Qué son los Microservicios:  
+Tarea: Investiga y explica qué son los microservicios. ¿Cómo se diferencian de las arquitecturas monolíticas?  
+
+*  que son: Los microservicios son un enfoque de arquitectura de software en el que una aplicación se divide en un conjunto de servicios pequeños, independientes y altamente especializados 
+ * diferencia con arquitecturas monoliticas: las estructuras monoliticas contienen en un solobloque de codigo logica del negocio interfas de usuario y bases de datos en cambion micro servicio todo se encuentra divido en servicios mas pequenos. si la aplicacion es grande y tiene muchas dependencia una arquitectura en microservicios es mas facil de escalar ya que cada servicio se crea paraque puedad crecer independiente de otro 
+  
+Relevancia en la Nube:  
+Tarea: Analiza por qué los microservicios son relevantes en entornos de nube. Considera aspectos como escalabilidad, independencia de despliegue y desarrollo, y flexibilidad.  
+
+
+Los **microservicios** son especialmente relevantes en entornos de nube debido a su capacidad para aprovechar las ventajas inherentes de la computación en la nube, como la escalabilidad, la flexibilidad y la eficiencia en el uso de recursos
+
+En la nube, la escalabilidad es uno de los pilares fundamentales, y los microservicios están diseñados para aprovechar al máximo esta característica.
+
+- **Escalabilidad automática:** En la nube, herramientas como **AWS Auto Scaling**, **Kubernetes** o **Azure Autoscale** permiten escalar automáticamente los microservicios en función de la demanda. Esto es especialmente útil para cargas de trabajo variables, como aplicaciones con picos de tráfico.
+
+-  **Uso eficiente de recursos:**  Al escalar solo los servicios necesarios, se evita el desperdicio de recursos, lo que es crucial en entornos de nube donde se paga por lo que se usa (modelo de pago por uso).
+
+La nube facilita el despliegue continuo y la integración continua (CI/CD), y los microservicios se benefician enormemente de esta capacidad.
+
+* Despliegue independiente: Cada microservicio puede ser desplegado de manera independiente, lo que permite actualizaciones rápidas y frecuentes sin afectar a otros servicios. Esto es ideal para entornos de nube, donde los despliegues automatizados son comunes.
+* Actualizaciones sin tiempo de inactividad:  En la nube, es posible implementar estrategias como blue-green deployments o canary releases para actualizar microservicios sin interrumpir el servicio. Esto es más difícil de lograr en una arquitectura monolítica.
+
+
+La nube proporciona un entorno ideal para el desarrollo basado en microservicios, gracias a su flexibilidad y herramientas integradas.
+
+   *  Equipos pequeños y especializados:  Los microservicios permiten que equipos pequeños se enfoquen en un solo servicio, lo que facilita la gestión del desarrollo y fomenta la especialización. Esto se alinea con las prácticas modernas de desarrollo ágil y DevOps.
+
+   * Los microservicios se integran fácilmente con servicios de nube como AWS Lambda, Azure Functions, Google Cloud Run o Kubernetes, lo que simplifica su desarrollo, despliegue y gestión.
+
+
+---
+  
+Microservicios en Serverless:  
+Tarea: Explora cómo los microservicios se benefician de ser implementados en un entorno serverless. ¿Qué características de serverless complementan a los microservicios?  
+
+Los microservicios se benefician enormemente de las características inherentes a los entornos serverless, lo que permite una arquitectura más eficiente, escalable y fácil de gestionar
+
+*Beneficio para microservicios: Los microservicios están diseñados para ser independientes y escalables. En un entorno serverless, cada microservicio puede escalar automáticamente en función de la demanda, sin necesidad de intervención manual.
+    
+ *Característica de serverless: Plataformas como AWS Lambda, Azure Functions Google Cloud Functions escalan automáticamente el número de instancias de un servicio en función del número de solicitudes. Esto es ideal para microservicios que pueden experimentar picos de tráfico impredecibles.
+    
+
+. Costos optimizados (pago por uso):
+- **Beneficio para microservicios:**  Los microservicios suelen tener cargas de trabajo variables. En un entorno serverless, solo se paga por el tiempo de ejecución real de cada servicio, lo que reduce costos en comparación con mantener servidores activos todo el tiempo.
+    
+- **Característica de serverless:**  El modelo de pago por uso de serverless asegura que no se incurra en costos cuando los microservicios no están en uso.
