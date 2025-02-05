@@ -1,0 +1,55 @@
+### 1. **¿Qué es la Entrega Continua (CD) y cuáles son sus beneficios principales?**
+
+La **Entrega Continua (Continuous Delivery, CD)** es una práctica en DevOps que consiste en automatizar el proceso de despliegue de software en entornos de prueba, preproducción o producción, después de que el código ha pasado exitosamente por la Integración Continua (CI). El objetivo es que el software esté siempre en un estado listo para ser desplegado de manera rápida y segura.
+
+#### Beneficios principales de CD
+
+- **Liberaciones más rápidas**: Permite entregar nuevas funcionalidades a los usuarios de manera ágil y frecuente.
+- **Reducción de riesgos**: Al automatizar el proceso de despliegue, se minimizan los errores humanos y se asegura que el software esté siempre en un estado estable.
+- **Mejora de la calidad**: El software se prueba y valida en entornos similares a producción antes de su lanzamiento.
+- **Feedback rápido**: Los equipos reciben retroalimentación inmediata sobre el estado del software en producción, lo que permite corregir problemas rápidamente.
+
+---
+
+### 2. **¿Cómo se integra CI con CD para formar un pipeline de despliegue?**
+
+Transición de CI a CD
+La **Integración Continua (CI)** y la **Entrega Continua (CD)** trabajan juntas en un **pipeline de CI/CD** para automatizar todo el flujo de trabajo, desde la escritura del código hasta su despliegue en producción. Aquí te explico cómo se integran:
+
+1. **CI (Integración Continua)**: Los desarrolladores realizan cambios en el código y los integran en un repositorio compartido.
+   El sistema de CI ejecuta pruebas automatizadas y construye el código para asegurar que no haya errores.
+2. **CD (Entrega Continua)**:Una vez que el código pasa las pruebas de CI, el sistema de CD toma el artefacto generado (por ejemplo, un archivo JAR, una imagen Docker, etc.) y lo despliega en un entorno de prueba o preproducción.
+   Si el despliegue en estos entornos es exitoso, el código puede ser desplegado en producción de manera automática o manual, dependiendo de la estrategia de CD.
+
+---
+
+### 3. **¿Qué herramientas populares de CI/CD también soportan CD y cómo?**
+
+1. **Jenkins**: Soporta CD mediante plugins como **Jenkins Pipeline**, que permite definir pipelines complejos para construir, probar y desplegar aplicaciones.
+   Ejemplo: Despliegue en Kubernetes o AWS usando plugins específicos.
+2. **GitLab CI/CD**: Ofrece soporte nativo para CD mediante su archivo `.gitlab-ci.yml`, donde se pueden definir etapas de despliegue en diferentes entornos.
+   Ejemplo: Despliegue automático a un entorno de staging después de que las pruebas pasen.
+3. **GitHub Actions**: Permite definir workflows de CI/CD en archivos YAML dentro de la carpeta `.github/workflows/`.
+   Ejemplo: Despliegue automático a Azure, AWS o Kubernetes después de un push a la rama principal.
+---
+
+### 4. **¿Cuáles son algunas estrategias comunes de despliegue en CD?**
+
+1. **Despliegue Azul/Verde (Blue/Green)**: Se tienen dos entornos idénticos (azul y verde). Uno está en producción (por ejemplo, azul) y el otro en standby (verde).
+   El nuevo código se despliega en el entorno standby (verde) y, una vez validado, se cambia el tráfico de azul a verde.
+   Ventaja: Permite un rollback rápido si algo sale mal.
+2. **Canary Releases**: El nuevo código se despliega gradualmente a un pequeño porcentaje de usuarios antes d hacerlo a toda la base de usuarios.
+   Ventaja: Reduce el riesgo de afectar a todos los usuarios si hay un problema.
+3. **Rolling Updates**:El nuevo código se despliega en pequeños lotes de servidores o contenedores, reemplazando gradualmente las versiones anteriores.
+   Ventaja: No hay tiempo de inactividad durante el despliegue.
+4. **Feature Flags**: Las nuevas funcionalidades se activan o desactivan dinámicamente mediante configuraciones, sin necesidad de un despliegue completo.
+   Ventaja: Permite probar nuevas características con usuarios específicos.
+
+---
+
+### 5. **¿Por qué es importante el monitoreo y el feedback en el proceso de CD?**
+
+- **Detección temprana de problemas**: El monitoreo permite identificar errores o fallos en producción de manera inmediata, lo que facilita una corrección rápida.
+- **Mejora continua**: El feedback de los usuarios y los sistemas de monitoreo ayuda a los equipos a entender cómo se comporta el software en producción y a realizar mejoras iterativas.
+- **Garantía de calidad**: Asegura que el software cumple con los requisitos de rendimiento, disponibilidad y seguridad.
+
